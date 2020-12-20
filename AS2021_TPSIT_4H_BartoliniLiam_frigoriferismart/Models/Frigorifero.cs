@@ -14,11 +14,11 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
 
         public Frigorifero()
         {
-            frigo.Add(new Prodotto(1, "Piada", "18/12/2020", 135, "Contorno", 2));        
-            frigo.Add(new Prodotto(2, "Ragù", "19/12/2020", 350, "Condimento", 2));        
-            frigo.Add(new Prodotto(3, "Acqua", "25/12/2030", 0, "Bevanda", 3));
-            frigo.Add(new Prodotto(4, "Torta", "23/12/2020", 530, "Dolce", 10));     
-            frigo.Add(new Prodotto(5, "Minerali", "2/1/2021", 258, "Integratore", 1));     
+            frigo.Add(new Prodotto(1, "Piada", "18/12/2020", 135, 2));        
+            frigo.Add(new Prodotto(2, "Ragù", "19/12/2020", 350, 2));        
+            frigo.Add(new Prodotto(3, "Acqua", "25/12/2030", 0, 3));
+            frigo.Add(new Prodotto(4, "Torta", "23/12/2020", 530, 10));     
+            frigo.Add(new Prodotto(5, "Minerali", "2/1/2021", 258, 1));     
         }
 
         public string ElencoProdottiScaduti()
@@ -42,18 +42,16 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
 
             sb.AppendLine("Codice\tDescrizione\tScadenza\tQuantità");
             for (int i = 0; i < frigo.Count; i++)
-            {
-                if(frigo[i].Nprodotto != 0)
+                if(frigo[i].Exist)
                     sb.AppendLine($"{frigo[i].CodiceIdentificativo}\t{frigo[i].Descrizione}\t\t{frigo[i].Scadenza:dd/MM/yyyy}\t{frigo[i].Nprodotto}");
-            }
-
+            
             return sb.ToString();
         }
 
         public void PrelevamentoProdotto(int porzioni, int identificativo)
         {
             if (porzioni == frigo[identificativo - 1].Nprodotto)
-                frigo.RemoveAt(identificativo - 1);
+                frigo[identificativo - 1].Exist = false;
             else if (porzioni <= frigo[identificativo - 1].Nprodotto)
                 frigo[identificativo - 1].Nprodotto -= porzioni;
             else
@@ -72,14 +70,13 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
                         if(frigo[identificativo - 1].Nprodotto > 1)
                             throw new Exception("Inserire il numero di porzioni che si prelevano: ");
                         
-                        // Scrivo la tabella d'output
+                        // Scrivo la tabella dell'output
                         sb.AppendLine("Il prodotto:\t" + frigo[identificativo - 1].Descrizione);
                         sb.AppendLine("Codice:\t\t" + frigo[identificativo - 1].CodiceIdentificativo.ToString());
                         sb.AppendLine($"Scadenza:\t{frigo[identificativo - 1].Scadenza:dd/MM/yyyy}");
                         sb.AppendLine("E' stato prelevato");
 
-                        // Elimino il prodotto da dentro il frigorifero
-                        frigo.RemoveAt(identificativo - 1);
+                        frigo[identificativo - 1].Exist = false;
                     }
             }
             else
@@ -101,7 +98,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
             return sb.ToString();
         }
         
-        public string InserimentoProdotto(int identificativo, string descrizione, string scadenza, int kCal, string tipologiaPiatto, int porzioni)
+        public string InserimentoProdotto(int identificativo, string descrizione, string scadenza, int kCal, int porzioni)
         {
             // Controllo se il codice identificativo è gia presente
             for (int i = 0; i < frigo.Count; i++)
@@ -113,7 +110,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
             if (DateTime.Compare(dt, DateTime.Today) < 0)
                 throw new Exception("Il prodotto inserito è scaduto!");
 
-            Prodotto p = new Prodotto(identificativo, descrizione, scadenza, kCal, tipologiaPiatto, porzioni);
+            Prodotto p = new Prodotto(identificativo, descrizione, scadenza, kCal, porzioni);
             frigo.Add(p);
 
             return "Prodotto inserito correttamente";
@@ -126,8 +123,9 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
             sb.AppendLine($"\nSalvataggio in giorno: {DateTime.Today:dd/MM/yyyy}");    
             sb.AppendLine("Identificativo\tDescrizione\t\tScadenza\tPorzioni\tKcals");
             for (int i = 0; i < frigo.Count; i++)
-                sb.AppendLine(frigo[i].ToString());
-
+                if(frigo[i].Exist)
+                    sb.AppendLine(frigo[i].ToString());
+            
             sb.AppendLine("============");
 
             File.AppendAllText(path, sb.ToString());

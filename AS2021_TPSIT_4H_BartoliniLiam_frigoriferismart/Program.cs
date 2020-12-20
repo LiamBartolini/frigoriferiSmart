@@ -53,8 +53,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart
         input:
             try
             {
-                /// <summary>Test <c>41,nuovo,22/12/2020,456,esempio,5</c></summary> 
-
+                // Test case: 41,nuovo,22/12/2020,456,5
                 Console.WriteLine("Inserisci un nuovo prodotto: ");
                 string strNewProdotto = Console.ReadLine();
                 string[] newProdotto = strNewProdotto.Split(',');
@@ -65,8 +64,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart
                     newProdotto[1], // Descrizione
                     newProdotto[2], // Data di scadenza
                     Convert.ToInt32(newProdotto[3]), //calorie
-                    newProdotto[4], // Tipo di piatto
-                    Convert.ToInt32(newProdotto[5]) // Numero confezioni
+                    Convert.ToInt32(newProdotto[4]) // Numero confezioni
                     ));
 
                 Console.ResetColor();
