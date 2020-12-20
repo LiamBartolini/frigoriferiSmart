@@ -122,6 +122,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models
 
             sb.AppendLine($"\nSalvataggio in giorno: {DateTime.Today:dd/MM/yyyy}");    
             sb.AppendLine("Identificativo\tDescrizione\t\tScadenza\tPorzioni\tKcals");
+
             for (int i = 0; i < frigo.Count; i++)
                 if(frigo[i].Exist)
                     sb.AppendLine(frigo[i].ToString());

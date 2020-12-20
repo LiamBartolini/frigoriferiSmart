@@ -85,7 +85,7 @@ namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart
 
             Console.WriteLine("Ripristinare il file (S/N):");
 
-            switch (Console.ReadLine())
+            switch (Console.ReadLine().ToUpper())
             {
                 case "S":
                     Console.WriteLine("Ripristino in corso...");

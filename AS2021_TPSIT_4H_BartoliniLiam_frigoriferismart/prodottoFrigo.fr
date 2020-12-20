@@ -1,9 +1,0 @@
-
-Salvataggio in giorno: 20/12/2020
-Identificativo	Descrizione		Scadenza	Porzioni	Kcals
-	2			Ragù			19/12/2020		2		350
-	3			Acqua			25/12/2030		3		0
-	4			Torta			23/12/2020		10		530
-	5			Minerali			02/01/2021		1		258
-	41			nuovo			22/12/2020		5		456
-============
