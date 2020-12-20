@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart.Models;
 
 namespace AS2021_TPSIT_4H_BartoliniLiam_frigoriferismart
